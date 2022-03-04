@@ -14,7 +14,6 @@ module "ec2" {
   count = 2
   source = "./ec2"
   SGID = module.sg.SGID
-  name = [ "dev", "prod"]
 }
 
 module "sg" {
