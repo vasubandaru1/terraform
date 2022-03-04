@@ -10,3 +10,7 @@ resource "aws_instance" "sample" {
 
 
 variable "SGID" {}
+
+output "public_ip" {
+  value = aws_instance.sample.public_ip
+}
