@@ -8,9 +8,5 @@ resource "aws_instance" "sample" {
   }
 }
 
-output "ec2" {
-  value = "aws_instance.sample.id"
 
-}
-
-variable SGID {}
+variable "SGID" {}
