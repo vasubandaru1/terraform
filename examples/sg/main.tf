@@ -23,3 +23,7 @@ resource "aws_security_group" "allow_sample" {
     Name = "allow_sample"
   }
 }
+
+output "SGID" {
+  value = "aws_security_group.allow_sample.id"
+}
