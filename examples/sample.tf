@@ -14,11 +14,12 @@ module "ec2" {
   source = "./ec2"
   SGID = module.sg.SGID
   name = [ "new1","new2"]
+  instance_type = var.instance_type
 }
 
 module "sg" {
   source = "./sg"
 }
 
-
+variable instance_type {}
 
