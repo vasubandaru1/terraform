@@ -40,3 +40,8 @@ data "aws_ami" "example" {
 
 
 }
+
+#locals {
+#  NAME = element(var.name, count.index)
+#}
+#  local.NAME
