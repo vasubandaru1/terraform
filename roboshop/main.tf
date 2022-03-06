@@ -1,10 +1,11 @@
 resource "aws_spot_instance_request" "cheap_worker" {
+  count         = length(var.component)
   ami           = data.aws_ami.example.id
   instance_type = "t3.micro"
   vpc_security_group_ids = ["sg-0fcfa1dc4218b8b12"]
 
   tags = {
-    Name = "CheapWorker"
+    Name = element(var.component, count.index )
 
   }
 }
