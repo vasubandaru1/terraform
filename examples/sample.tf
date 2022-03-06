@@ -21,5 +21,5 @@ module "sg" {
   source = "./sg"
 }
 
-variable instance_type {}
+variable "instance_type" {}
 
