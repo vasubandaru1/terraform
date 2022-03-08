@@ -12,10 +12,11 @@ resource "aws_spot_instance_request" "cheap_worker" {
 }
 
 resource "null_resource" "ansible" {
+  depends_on = [aws_route53_record.records]
   count = length(var.components)
   provisioner "remote-exec" {
     connection {
-      host     = element(aws_spot_instance_request.cheap_worker.*.spot_instance_id, count.index)
+      host     = element(aws_spot_instance_request.cheap_worker.*.private_ip, count.index)
       user     = centos
       password = DevOps321
     }
@@ -26,6 +27,15 @@ resource "null_resource" "ansible" {
       "ansible-pull -U https://github.com/vasubandaru1/ANSIBLE2.git roboshop-pull.yml -e ENV=dev -e COMPONENT=${element(var.components, count.index)}"
     ]
   }
+}
+
+resource "aws_route53_record" "records" {
+  count   = length(var.components)
+  zone_id = "Z039375817I27ZO6KZ11D"
+  name    = "{$element(var.components, count.index)}.roboshop.internal"
+  type    = "A"
+  ttl     = "300"
+  records = [element(aws_spot_instance_request.cheap_worker.*.private_ip, count.index)]
 }
 
 resource "aws_ec2_tag" "tags" {
