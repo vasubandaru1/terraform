@@ -13,7 +13,7 @@ resource "aws_spot_instance_request" "cheap_worker" {
 resource "aws_route53_record" "records" {
   count   = length(var.components)
   zone_id = "Z039375817I27ZO6KZ11D"
-  name    = "${element(var.components, count.index)}-dev.roboshop.internal"
+  name    = "${element(var.components,count.index)}-dev.roboshop.internal"
   type    = "A"
   ttl     = "300"
   records = [element(aws_spot_instance_request.cheap_worker.*.private_ip, count.index)]
@@ -34,7 +34,7 @@ resource "null_resource" "ansible" {
       "sudo yum install python3-pip -y",
       "sudo pip3 install pip --upgrade",
       "sudo pip3 install ansible",
-      "ansible-push -U https://github.com/vasubandaru1/ANSIBLE2.git roboshop.yml -e COMPONENTS=${ element(var.components,count.index)} -e ENV=dev"
+      "ansible-pull -U https://github.com/vasubandaru1/ANSIBLE2.git roboshop-pull.yml -e COMPONENT=${element(var.components,count.index)} -e ENV=dev"
     ]
   }
 }
