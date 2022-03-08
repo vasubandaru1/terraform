@@ -35,7 +35,7 @@ resource "null_resource" "ansible" {
       "sudo yum install python3-pip -y",
       "sudo pip3 install pip --upgrade",
       "sudo pip3 install ansible",
-      "ansible-pull -U https://github.com/vasubandaru1/ANSIBLE2.git roboshop-pull.yml -e ENV=dev -e COMPONENT=${element(var.components, count.index)}"
+      "ansible-pull -U https://github.com/vasubandaru1/ANSIBLE2.git roboshop-pull.yml -e ENV=dev -e COMPONENTS=${element(var.components, count.index)}"
     ]
   }
 }
