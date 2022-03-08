@@ -32,7 +32,7 @@ resource "null_resource" "ansible" {
 resource "aws_route53_record" "records" {
   count   = length(var.components)
   zone_id = "Z039375817I27ZO6KZ11D"
-  name    = "{$element(var.components, count.index)}.roboshop.internal"
+  name    = "{$element(var.components, count.index)}-dev.roboshop.internal"
   type    = "A"
   ttl     = "300"
   records = [element(aws_spot_instance_request.cheap_worker.*.private_ip, count.index)]
